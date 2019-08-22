@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)file:///Users/biubiubiu/Desktop/mapboxtest/index2.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Display a map</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <script src="./index2.1_files/mapbox-gl.js"></script>
+    <link href="./index2.1_files/mapbox-gl.css" rel="stylesheet">
+    <style>
+        body {margin: 0;padding: 0;}
+
+h2,h3 {font-size: 1.2em;}
+
+h3 {font-size: 1em;}
+
+p {font-size: 0.85em;margin: 10px;text-align: left;}
+
+/**
+* Create a position for the map
+* on the page */
+#mapl {position: absolute;left:15%; width: 40%; height: 800px; z-index: 1;border: 1px solid black;}
+#mapr {position: absolute;right:5%; width: 40%; height: 800px; z-index: 1;border: 1px solid black;}
+#mapl2 {position: absolute;left:15%; width: 40%; height: 800px; z-index: 1;border: 1px solid black;}
+#mapr2 {position: absolute;right:5%; width: 40%; height: 800px; z-index: 1;border: 1px solid black;}
+/**
+* Set rules for how the map overlays
+* (information box and legend) will be displayed
+* on the page. */
+.map-overlay {position: absolute;
+  bottom: 0;right: 0;background: rgba(255, 255, 255, 0.8);
+  margin-right: 20px;font-family: Arial, sans-serif;
+  overflow: auto;border-radius: 3px;}
+
+#featuresl {top: 0;height: 100px;margin-top: 20px;width: 200px;height: 150px;z-index:10;}
+#featuresr {top: 0;height: 100px;margin-top: 20px;width: 200px;height: 150px;z-index:10;}
+#featuresl2 {top: 0;height: 100px;margin-top: 20px;width: 200px;height: 150px;z-index:10;}
+#featuresr2 {top: 0;height: 100px;margin-top: 20px;width: 200px;height: 150px;z-index:10;}
+
+#legendl {
+  padding: 10px;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  line-height: 18px;height: 190px;
+  margin-bottom: 20px; width: 100px; z-index:10;
+}
+#legendr {
+  padding: 10px;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  line-height: 18px;height: 190px;
+  margin-bottom: 20px; width: 100px; z-index:10;}
+#legendl2 {
+  padding: 10px;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  line-height: 18px;height: 190px;
+  margin-bottom: 20px;width: 100px; z-index:10;
+}
+#legendr2 {
+  padding: 10px;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  line-height: 18px;height: 190px;
+  margin-bottom: 20px;width: 100px; z-index:10;}
+
+.legend-key {
+  display: inline-block;border-radius: 20%;width: 10px;
+  height: 10px;margin-right: 5px;}
+    </style>
+</head>
+<body>
+
+<h1>SDG Indicator Showcases for the Greater Melbourne and the Greater Perth in 2016 </h1>
+<p>SDI GP1</p>
+<hr/>
+<h2 style="position: absolute; left:45%;">SDG No.1 NO Poverty Indicator 1.2.1 -- Melbourne 2016 (left) & Perth (right) </h2>
+
+
+<div id="mapl" class="mapboxgl-map" style="top: 170px;">
+	<div class="mapboxgl-canary" style="visibility: hidden;"></div>
+	<div class="mapboxgl-canvas-container mapboxgl-interactive mapboxgl-touch-drag-pan mapboxgl-touch-zoom-rotate">
+	<canvas class="mapboxgl-canvas" tabindex="0" aria-label="Map" width="1312" height="1344" style="position: absolute; width: 656px; height: 672px;"></canvas>
+	</div><div class="mapboxgl-control-container">
+	<div class="mapboxgl-ctrl-top-left"></div>
+	<div class="mapboxgl-ctrl-top-right"></div>
+	<div class="mapboxgl-ctrl-bottom-left">
+	<div class="mapboxgl-ctrl" style="display: block;">
+	<a class="mapboxgl-ctrl-logo" target="_blank" rel="noopener nofollow" href="https://www.mapbox.com/" aria-label="Mapbox logo"></a></div></div>
+	<div class="mapboxgl-ctrl-bottom-right">
+	<div class="mapboxgl-ctrl mapboxgl-ctrl-attrib">
+	<div class="mapboxgl-ctrl-attrib-inner"><a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox</a> 
+	<a href="http://www.openstreetmap.org/about/" target="_blank">© OpenStreetMap</a> 
+	<a class="mapbox-improve-map" href="https://apps.mapbox.com/feedback/?owner=noraxu&amp;id=cjzif6ih43ypl1cmxwixglf4h&amp;access_token=pk.eyJ1Ijoibm9yYXh1IiwiYSI6ImNqemlnaHV0YTE0czIzbm5ya2t4bjlhbGwifQ.XiRdoGvrSBbxXAakPnY67Q" target="_blank" rel="noopener nofollow">Improve this map</a>
+	</div></div></div></div>
+	<div class="map-overlay" id="legendl"><h4>Legend</h4></div>
+	<div class="map-overlay" id="featuresl"><h2>Info box</h2><div id="pdl"></div></div></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1Ijoibm9yYXh1IiwiYSI6ImNqemlnaHV0YTE0czIzbm5ya2t4bjlhbGwifQ.XiRdoGvrSBbxXAakPnY67Q';
+var map = new mapboxgl.Map({
+    container: 'mapl', // container id
+    style: 'mapbox://styles/noraxu/cjzif6ih43ypl1cmxwixglf4h', // stylesheet location
+    center: [145, -37.9], // starting position [lng, lat]
+    zoom: 8 // starting zoom
+});
+
+map.on('load', function() {
+  var layers = ['0-0.20', '0.20-0.22', '0.22-0.24', '0.24-0.28', '0.28-0.34', '0.34-0.60', '0.60+'];
+  var colors = ['#feeae1', '#fcc5c0', '#fa9fb5', '#f768a1', '#dd3497', '#ae017e', '#7a0177'];
+  for (i = 0; i < layers.length; i++) {
+  var layer = layers[i];
+  var color = colors[i];
+  var item = document.createElement('div');
+  var key = document.createElement('span');
+  key.className = 'legend-key';
+  key.style.backgroundColor = color;
+
+  var value = document.createElement('span');
+  value.innerHTML = layer;
+  item.appendChild(key);
+  item.appendChild(value);
+  legendl.appendChild(item);
+}
+});
+
+map.on('mousemove', function(e) {
+  var states = map.queryRenderedFeatures(e.point, {
+    layers: ['melb-poverty-awvw8m']
+  });
+
+  if (states.length > 0) {
+    document.getElementById('pdl').innerHTML = '<h3>Melbourne</h3>'+'<h3><strong>' + states[0].properties.s2_nm16 + '</strong></h3><p><em>' + 'poverty ratio: <strong>'+ states[0].properties.pvrty_r + '</strong></em></p>';
+  } else {
+    document.getElementById('pdl').innerHTML = '<p>Hover over an area!</p>';
+  }
+});
+
+map.getCanvas().style.cursor = 'default';
+
+
+
+</script>
+
+
+<div id="mapr" class="mapboxgl-map" style="top: 170px;">
+	<div class="mapboxgl-canary" style="visibility: hidden;"></div>
+	<div class="mapboxgl-canvas-container mapboxgl-interactive mapboxgl-touch-drag-pan mapboxgl-touch-zoom-rotate">
+	<canvas class="mapboxgl-canvas" tabindex="0" aria-label="Map" width="1312" height="1344" style="position: absolute; width: 656px; height: 672px;"></canvas>
+	</div><div class="mapboxgl-control-container">
+	<div class="mapboxgl-ctrl-top-left"></div>
+	<div class="mapboxgl-ctrl-top-right"></div>
+	<div class="mapboxgl-ctrl-bottom-left">
+	<div class="mapboxgl-ctrl" style="display: block;">
+	<a class="mapboxgl-ctrl-logo" target="_blank" rel="noopener nofollow" href="https://www.mapbox.com/" aria-label="Mapbox logo"></a></div></div>
+	<div class="mapboxgl-ctrl-bottom-right">
+	<div class="mapboxgl-ctrl mapboxgl-ctrl-attrib">
+	<div class="mapboxgl-ctrl-attrib-inner"><a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox</a> 
+	<a href="http://www.openstreetmap.org/about/" target="_blank">© OpenStreetMap</a> 
+	<a class="mapbox-improve-map" href="https://apps.mapbox.com/feedback/?owner=noraxu&amp;id=cjzif6ih43ypl1cmxwixglf4h&amp;access_token=pk.eyJ1Ijoibm9yYXh1IiwiYSI6ImNqemlnaHV0YTE0czIzbm5ya2t4bjlhbGwifQ.XiRdoGvrSBbxXAakPnY67Q" target="_blank" rel="noopener nofollow">Improve this map</a>
+	</div></div></div></div>
+	<div class="map-overlay" id="legendr"><h4>Legend</h4></div>
+	<div class="map-overlay" id="featuresr"><h2>Info box</h2><div id="pdr"></div></div></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1Ijoibm9yYXh1IiwiYSI6ImNqemlnaHV0YTE0czIzbm5ya2t4bjlhbGwifQ.XiRdoGvrSBbxXAakPnY67Q';
+var mapr = new mapboxgl.Map({
+    container: 'mapr', // container id
+    style: 'mapbox://styles/noraxu/cjzif6ih43ypl1cmxwixglf4h', // stylesheet location
+    center: [145, -37.9], // starting position [lng, lat]
+    zoom: 8 // starting zoom
+});
+
+mapr.on('load', function() {
+  var layers = ['0-0.20', '0.20-0.22', '0.22-0.24', '0.24-0.28', '0.28-0.34', '0.34-0.60', '0.60+'];
+  var colors = ['#feeae1', '#fcc5c0', '#fa9fb5', '#f768a1', '#dd3497', '#ae017e', '#7a0177'];
+  for (i = 0; i < layers.length; i++) {
+  var layer = layers[i];
+  var color = colors[i];
+  var item = document.createElement('div');
+  var key = document.createElement('span');
+  key.className = 'legend-key';
+  key.style.backgroundColor = color;
+
+  var value = document.createElement('span');
+  value.innerHTML = layer;
+  item.appendChild(key);
+  item.appendChild(value);
+  legendr.appendChild(item);
+}
+});
+
+mapr.on('mousemove', function(e) {
+  var states = mapr.queryRenderedFeatures(e.point, {
+    layers: ['melb-poverty-awvw8m']
+  });
+
+  if (states.length > 0) {
+    document.getElementById('pdr').innerHTML = '<h3>Perth</h3>'+'<h3><strong>' + states[0].properties.s2_nm16 + '</strong></h3><p><em>' + 'poverty ratio: <strong>'+ states[0].properties.pvrty_r + '</strong></em></p>';
+  } else {
+    document.getElementById('pdr').innerHTML = '<p>Hover over an area!</p>';
+  }
+});
+
+mapr.getCanvas().style.cursor = 'default';
+
+
+
+</script>
+<!-- group2 -->
+<h2 style="position: absolute; top: 1000px; left: 45%;">SDG No.1 NO Poverty Indicator 1.2.1 -- Melbourne 2016 (left) & Perth (right) </h2>
+
+
+<div id="mapl2" class="mapboxgl-map" style="top:1050px;" >
+	<div class="mapboxgl-canary" style="visibility: hidden;"></div>
+	<div class="mapboxgl-canvas-container mapboxgl-interactive mapboxgl-touch-drag-pan mapboxgl-touch-zoom-rotate">
+	<canvas class="mapboxgl-canvas" tabindex="0" aria-label="Map" width="1312" height="1344" style="position: absolute; width: 656px; height: 672px;"></canvas>
+	</div><div class="mapboxgl-control-container">
+	<div class="mapboxgl-ctrl-top-left"></div>
+	<div class="mapboxgl-ctrl-top-right"></div>
+	<div class="mapboxgl-ctrl-bottom-left">
+	<div class="mapboxgl-ctrl" style="display: block;">
+	<a class="mapboxgl-ctrl-logo" target="_blank" rel="noopener nofollow" href="https://www.mapbox.com/" aria-label="Mapbox logo"></a></div></div>
+	<div class="mapboxgl-ctrl-bottom-right">
+	<div class="mapboxgl-ctrl mapboxgl-ctrl-attrib">
+	<div class="mapboxgl-ctrl-attrib-inner"><a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox</a> 
+	<a href="http://www.openstreetmap.org/about/" target="_blank">© OpenStreetMap</a> 
+	<a class="mapbox-improve-map" href="https://apps.mapbox.com/feedback/?owner=noraxu&amp;id=cjzif6ih43ypl1cmxwixglf4h&amp;access_token=pk.eyJ1Ijoibm9yYXh1IiwiYSI6ImNqemlnaHV0YTE0czIzbm5ya2t4bjlhbGwifQ.XiRdoGvrSBbxXAakPnY67Q" target="_blank" rel="noopener nofollow">Improve this map</a>
+	</div></div></div></div>
+	<div class="map-overlay" id="legendl2"><h4>Legend</h4></div>
+	<div class="map-overlay" id="featuresl2"><h2>Info box</h2><div id="pdl2"></div></div></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1Ijoibm9yYXh1IiwiYSI6ImNqemlnaHV0YTE0czIzbm5ya2t4bjlhbGwifQ.XiRdoGvrSBbxXAakPnY67Q';
+var mapl2 = new mapboxgl.Map({
+    container: 'mapl2', // container id
+    style: 'mapbox://styles/noraxu/cjzif6ih43ypl1cmxwixglf4h', // stylesheet location
+    center: [145, -37.9], // starting position [lng, lat]
+    zoom: 8 // starting zoom
+});
+
+mapl2.on('load', function() {
+  var layers = ['0-0.20', '0.20-0.22', '0.22-0.24', '0.24-0.28', '0.28-0.34', '0.34-0.60', '0.60+'];
+  var colors = ['#feeae1', '#fcc5c0', '#fa9fb5', '#f768a1', '#dd3497', '#ae017e', '#7a0177'];
+  for (i = 0; i < layers.length; i++) {
+  var layer = layers[i];
+  var color = colors[i];
+  var item = document.createElement('div');
+  var key = document.createElement('span');
+  key.className = 'legend-key';
+  key.style.backgroundColor = color;
+
+  var value = document.createElement('span');
+  value.innerHTML = layer;
+  item.appendChild(key);
+  item.appendChild(value);
+  legendl2.appendChild(item);
+}
+});
+
+mapl2.on('mousemove', function(e) {
+  var states = map.queryRenderedFeatures(e.point, {
+    layers: ['melb-poverty-awvw8m']
+  });
+
+  if (states.length > 0) {
+    document.getElementById('pdl2').innerHTML = '<h3>Melbourne</h3>'+'<h3><strong>' + states[0].properties.s2_nm16 + '</strong></h3><p><em>' + 'poverty ratio: <strong>'+ states[0].properties.pvrty_r + '</strong></em></p>';
+  } else {
+    document.getElementById('pdl2').innerHTML = '<p>Hover over an area!</p>';
+  }
+});
+
+mapl2.getCanvas().style.cursor = 'default';
+
+
+
+</script>
+
+<div id="mapr2" class="mapboxgl-map" style="top: 1050px;">
+	<div class="mapboxgl-canary" style="visibility: hidden;"></div>
+	<div class="mapboxgl-canvas-container mapboxgl-interactive mapboxgl-touch-drag-pan mapboxgl-touch-zoom-rotate">
+	<canvas class="mapboxgl-canvas" tabindex="0" aria-label="Map" width="1312" height="1344" style="position: absolute; width: 656px; height: 672px;"></canvas>
+	</div><div class="mapboxgl-control-container">
+	<div class="mapboxgl-ctrl-top-left"></div>
+	<div class="mapboxgl-ctrl-top-right"></div>
+	<div class="mapboxgl-ctrl-bottom-left">
+	<div class="mapboxgl-ctrl" style="display: block;">
+	<a class="mapboxgl-ctrl-logo" target="_blank" rel="noopener nofollow" href="https://www.mapbox.com/" aria-label="Mapbox logo"></a></div></div>
+	<div class="mapboxgl-ctrl-bottom-right">
+	<div class="mapboxgl-ctrl mapboxgl-ctrl-attrib">
+	<div class="mapboxgl-ctrl-attrib-inner"><a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox</a> 
+	<a href="http://www.openstreetmap.org/about/" target="_blank">© OpenStreetMap</a> 
+	<a class="mapbox-improve-map" href="https://apps.mapbox.com/feedback/?owner=noraxu&amp;id=cjzif6ih43ypl1cmxwixglf4h&amp;access_token=pk.eyJ1Ijoibm9yYXh1IiwiYSI6ImNqemlnaHV0YTE0czIzbm5ya2t4bjlhbGwifQ.XiRdoGvrSBbxXAakPnY67Q" target="_blank" rel="noopener nofollow">Improve this map</a>
+	</div></div></div></div>
+	<div class="map-overlay" id="legendr2"><h4>Legend</h4></div>
+	<div class="map-overlay" id="featuresr2"><h2>Info box</h2><div id="pdr2"></div></div></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1Ijoibm9yYXh1IiwiYSI6ImNqemlnaHV0YTE0czIzbm5ya2t4bjlhbGwifQ.XiRdoGvrSBbxXAakPnY67Q';
+var mapr2 = new mapboxgl.Map({
+    container: 'mapr2', // container id
+    style: 'mapbox://styles/noraxu/cjzif6ih43ypl1cmxwixglf4h', // stylesheet location
+    center: [145, -37.9], // starting position [lng, lat]
+    zoom: 8 // starting zoom
+});
+
+mapr2.on('load', function() {
+  var layers = ['0-0.20', '0.20-0.22', '0.22-0.24', '0.24-0.28', '0.28-0.34', '0.34-0.60', '0.60+'];
+  var colors = ['#feeae1', '#fcc5c0', '#fa9fb5', '#f768a1', '#dd3497', '#ae017e', '#7a0177'];
+  for (i = 0; i < layers.length; i++) {
+  var layer = layers[i];
+  var color = colors[i];
+  var item = document.createElement('div');
+  var key = document.createElement('span');
+  key.className = 'legend-key';
+  key.style.backgroundColor = color;
+
+  var value = document.createElement('span');
+  value.innerHTML = layer;
+  item.appendChild(key);
+  item.appendChild(value);
+  legendr2.appendChild(item);
+}
+});
+
+mapr2.on('mousemove', function(e) {
+  var states = mapr.queryRenderedFeatures(e.point, {
+    layers: ['melb-poverty-awvw8m']
+  });
+
+  if (states.length > 0) {
+    document.getElementById('pdr2').innerHTML = '<h3>Perth</h3>'+'<h3><strong>' + states[0].properties.s2_nm16 + '</strong></h3><p><em>' + 'poverty ratio: <strong>'+ states[0].properties.pvrty_r + '</strong></em></p>';
+  } else {
+    document.getElementById('pdr2').innerHTML = '<p>Hover over an area!</p>';
+  }
+});
+
+mapr2.getCanvas().style.cursor = 'default';
+
+
+
+</script>
+
+
+</body></html>
